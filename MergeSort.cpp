@@ -1,4 +1,3 @@
-﻿#include "pch.h"
 #include <iostream>
 #include <conio.h>
 
@@ -8,85 +7,54 @@ using namespace std;
 
 class Sort {
 public:
-	virtual void setName(string sort) = 0;
-	virtual void setArray(int n) = 0;
-	virtual string getName() = 0;
+  virtual void sorting (int* arr, int l, int r) = 0;
 };
 
 class Merge : public Sort {
-	string name;
-	int n;
-	int* arr;
 public:
-	void setName(string sort) override;
-	void setArray(int n) override;
-	string getName() override;
-	void Sort(int l, int r);
-	void PrintArray();
+    void sorting(int* arr,int l, int r) override;
 };
 
-void Merge::setName(string sort) {
-	name = sort;
-};
+void Merge::sorting(int* arr, int l, int r) {
+    if (r == l)
+        return;
+    if (r - l == 1) {
+        if (arr[r] < arr[l])
+            swap(arr[r], arr[l]);
+        return;
+    }
+    int m = (r + l) / 2;
+    sorting(arr,l, m);
+    sorting(arr,m + 1, r);
+    int buf[max];
+    int xl = l;
+    int xr = m + 1;
+    int cur = 0;
+    while (r - l + 1 != cur) {
+        if (xl > m)
+            buf[cur++] = arr[xr++];
+        else if (xr > r)
+            buf[cur++] = arr[xl++];
+        else if (arr[xl] > arr[xr])
+            buf[cur++] = arr[xr++];
+        else buf[cur++] = arr[xl++];
 
-void Merge::setArray(int n) {
-	this->n = n;
-	arr = new int[n];
-	for (int i = 0; i < this->n; i++) {
-		cout << "Array[" << i << "] - ";
-		cin >> arr[i];
-	}
-};
-
-string Merge::getName() {
-	return name;
-};
-
-void Merge::Sort(int l, int r) {
-	if (r == l)
-		return;
-	if (r - l == 1) {
-		if (arr[r] < arr[l])
-			swap(arr[r], arr[l]);
-		return;
-	}
-	int m = (r + l) / 2;
-	Sort(l, m);
-	Sort(m + 1, r);
-	int buf[max];
-	int xl = l;
-	int xr = m + 1;
-	int cur = 0;
-	while (r - l + 1 != cur) {
-		if (xl > m)
-			buf[cur++] = arr[xr++];
-		else if (xr > r)
-			buf[cur++] = arr[xl++];
-		else if (arr[xl] > arr[xr])
-			buf[cur++] = arr[xr++];
-		else buf[cur++] = arr[xl++];
-
-	}
-	for (int i = 0; i < cur; i++)
-		arr[i + l] = buf[i];
-};
-
-void Merge::PrintArray() {
-	for (int i = 0; i < n; i++)
-		cout << arr[i] << " ";
-	cout << endl;
+    }
+    for (int i = 0; i < cur; i++)
+        arr[i + l] = buf[i];
 };
 
 int main() {
-	Merge merge1;
-
-	merge1.setName("MergeSort");
-	int n;
-	cout << "Number of array elements - ";
-	cin >> n;
-	merge1.setArray(n);
-	merge1.PrintArray();
-	merge1.getName();
-	merge1.Sort(0, n - 1);
-	merge1.PrintArray();
+    Merge merge1;
+    unsigned int n;
+    cin >> n;
+    int* arr;
+    for (int i = 0; i < n; i++) {
+        cout << "Array[" << i << "] - ";
+        cin >> arr[i];
+    }
+    merge1.sorting(arr,0,n);
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
 }
