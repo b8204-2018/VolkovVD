@@ -7,7 +7,7 @@ using namespace std;
 
 class Sort {
 public:
-  virtual void sorting (int* arr, int l, int r) = 0;
+  virtual void sorting (int* arr) = 0;
 };
 
 class Merge : public Sort {
