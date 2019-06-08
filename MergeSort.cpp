@@ -12,12 +12,12 @@ public:
 
 class Merge : public Sort {
 public:
-    void sorting(int* arr,int size) override;
+    void sorting(int* arr, int size) override;
     void merging(int left, int right);
 };
 
 void Merge::sorting(int *arr, int size){
-    merging(0,size-1)
+    merging(0, size-1)
 };
 
 void Merge::merging(int left, int right){
