@@ -7,20 +7,21 @@ using namespace std;
 
 class Sort {
 public:
-    virtual void sorting(int* arr, int size) = 0;
+    virtual void sorting(int *arr, int size) = 0;
 };
 
 class Merge : public Sort {
 public:
-    void sorting(int* arr, int size) override;
+    void sorting(int *arr, int size) override;
+
     void merging(int left, int right);
 };
 
-void Merge::sorting(int *arr, int size){
-    merging(0, size-1)
+void Merge::sorting(int *arr, int size) {
+    merging(0, size - 1);
 };
 
-void Merge::merging(int left, int right){
+void Merge::merging(int left, int right) {
     if (right == left)
         return;
     if (right - left == 1) {
@@ -29,8 +30,8 @@ void Merge::merging(int left, int right){
         return;
     }
     int m = (right + left) / 2;
-    sorting(left,m);
-    sorting(m+1,right);
+    sorting(left, m);
+    sorting(m + 1, right);
     int buf[max];
     int xl = left;
     int xr = m + 1;
@@ -53,12 +54,12 @@ int main() {
     Sort *sort = new Merge;
     unsigned int n;
     cin >> n;
-    int* arr;
+    int *arr;
     for (int i = 0; i < n; i++) {
         cout << "Array[" << i << "] - ";
         cin >> arr[i];
     }
-    sort->sorting(arr,n);
+    sort->sorting(arr, n);
     for (int i = 0; i < n; i++)
         cout << arr[i] << " ";
     cout << endl;
