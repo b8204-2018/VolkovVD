@@ -2,8 +2,12 @@
 #include <stack>
 #include <string.h>
 #include <cstdlib>
+#include <OPZ.h>
 
-using namespace std;
+using namespace std
+
+const int EMPTY = -1;
+const int ZERO = 0;
 
 class Parser {
     char *part;
@@ -11,6 +15,23 @@ class Parser {
 public:
 
     void toPart(string equation) {
+        if (strlen(equation) < 3){
+            throw EMPTY;
+        }
+        catch(EMPTY);
+        size_t open = 0, close = 0;
+        for (size_t i = 0; i < strlen(equation); i++) {
+            if (equation[i] == 40) {
+                open++;
+            }
+            if (equation[i] == 41) {
+                close++;
+            }
+        }
+        if (open != close) {
+            throw invalid_argument(equation);
+        }
+        catch(invalid_argument(equation));
         stack<char> sign;
         part = new char[equation.length()];
         for (size_t i = 0; i < equation.length(); i++) {
@@ -84,9 +105,15 @@ public:
             if (eq[i] == 47) {
                 int res = numbers.top();
                 numbers.pop();
-                res = res / numbers.top();
-                numbers.pop();
-                numbers.push(res);
+                if (res != 0) {
+                    res = res / numbers.top();
+                    numbers.pop();
+                    numbers.push(res);
+                }
+                else {
+                    throw (ZERO);
+                }
+                catch(ZERO);
             }
         }
         result = numbers.top();
@@ -104,7 +131,7 @@ public:
         result = calculator.Calculated(parser);
     }
 
-    int getResult(){
+    int getResult() {
         return result;
     };
 };
