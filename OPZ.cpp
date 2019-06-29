@@ -10,7 +10,7 @@ const int OPENBRACKET = 40, CLOSEBRACKET = 41, MUL = 42, ADD = 43, DIV = 47, SUB
 
 void Parser::toPart(string equation) {
     if (equation.length() < 3) {
-        throw logic_error("Empty");
+        throw invalid_argument("Empty");
     }
     size_t open = 0, close = 0;
     for (size_t i = 0; i < equation.length(); i++) {
@@ -120,12 +120,6 @@ Polska::Polska(string equation) {
     try {
         Parser parser;
         parser.toPart(equation);
-    }
-    catch (logic_error e) {
-        cout << e.what();
-        return;
-    };
-    try {
         Calculator calculator;
         result = calculator.Calculated(parser);
     }
@@ -138,9 +132,3 @@ Polska::Polska(string equation) {
 float Polska::getResult() {
     return result;
 };
-
-int main() {
-    Polska polska("((5+5)*(4-3))/2");
-    cout << polska.getResult();
-    return 0;
-}

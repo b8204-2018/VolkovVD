@@ -7,7 +7,7 @@ using namespace std;
 TEST(InvalidExpression, EmptyString) {
     string test("");
     Polska polska(test);
-    ASSERT_THROW(polska(test), EMPTY);
+    ASSERT_THROW(polska(test), invalid_argument);
 }
 
 TEST(InvalidExpression, ExtraRightBracket) {
@@ -56,7 +56,7 @@ TEST(Calculation, Brackets_NotEqualPriorities) {
 TEST(Calculation, DivisionByZero) {
     string test("(22+17)/0");
     Polska polska(test);
-    EXPECT_THROW(polska(test), ZERO);
+    EXPECT_THROW(polska(test), invalid_argument);
 }
 
 int main(int argc, char **argv) {
