@@ -10,28 +10,29 @@
 #include <string.h>
 #include <cstdlib>
 
-using namespace std
-
 class Parser {
     char *part;
     unsigned int size = 0;
 public:
-    void toPart(string equation);
+    void toPart(std::string equation);
+
     char *getPartition();
+
     unsigned int getSize();
 };
 
 class Calculator {
-    int result;
+    float result;
 public:
-    int Calculated(Parser part);
+    float Calculated(Parser part);
 };
 
 class Polska {
-    int result;
+    float result;
 public:
-    Polska(string equation);
-    int getResult();
+    Polska(std::string equation);
+
+    float getResult();
 };
 
 

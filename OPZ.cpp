@@ -65,7 +65,7 @@ unsigned int Parser::getSize() {
     return size;
 }
 
-int Calculator::Calculated(Parser part) {
+float Calculator::Calculated(Parser part) {
     stack<int> numbers;
     int j = 0;
     char *number = new char[part.getSize()];
@@ -119,12 +119,12 @@ int Calculator::Calculated(Parser part) {
 Polska::Polska(string equation) {
     try {
         Parser parser;
+        parser.toPart(equation);
     }
     catch (logic_error e) {
         cout << e.what();
         return;
     };
-    parser.toPart(equation);
     try {
         Calculator calculator;
         result = calculator.Calculated(parser);
@@ -135,7 +135,7 @@ Polska::Polska(string equation) {
     };
 }
 
-int Polska::getResult() {
+float Polska::getResult() {
     return result;
 };
 
